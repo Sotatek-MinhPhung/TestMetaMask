@@ -1,21 +1,18 @@
 import React from 'react'
 import {signatureUtils} from "@0x/order-utils"
-import {RPCSubprovider, SignerSubprovider, Web3ProviderEngine} from "@0x/subproviders"
+import {MetamaskSubprovider} from "@0x/subproviders";
 
-const rinkeby_infura_url = "https://rinkeby.infura.io/v3/e180608a18e74c5397b40e760f7a31f7"
 
 const Main4 = () => {
-        const test = async () => {
-        const providerEngine = new Web3ProviderEngine();
-        providerEngine.addProvider(new SignerSubprovider(window.web3.currentProvider));
-        providerEngine.addProvider(new RPCSubprovider(rinkeby_infura_url));
-        providerEngine.start();
 
+    const test = async () => {
+
+        const takerAddress = "0x041E7912541745A67F8c652a6bEe3CBAd131481d"
         const order = {
-            chainId: 4,
+            chainId: 15,
             exchangeAddress: '0x198805e9682fceec29413059b68550f92868c129',
-            makerAddress: '0x31bcb5371d2a847ef15a9cc80339ec069b8f4964',
-            takerAddress: '0x0000000000000000000000000000000000000000',
+            makerAddress: '0x041E7912541745A67F8c652a6bEe3CBAd131481d',
+            takerAddress: takerAddress,
             feeRecipientAddress: '0x0000000000000000000000000000000000000000',
             senderAddress: '0x0000000000000000000000000000000000000000',
             makerAssetAmount: 1000000000000000000,
@@ -30,12 +27,16 @@ const Main4 = () => {
             takerFeeAssetData: '0x'
         }
 
-        const signature = await signatureUtils.ecSignOrderAsync(
-            providerEngine,
-            order,
-            "0xA853531E6bd0129c9389738E8F00603619e15fE2"
-        )
+        // TODO: add 2 more params
+        // fromToken: string;
+        // toToken: string;
 
+        const signature = await signatureUtils.ecSignOrderAsync(
+            new MetamaskSubprovider(window.web3.currentProvider),
+            order,
+            // get from accounts
+            "0x041E7912541745A67F8c652a6bEe3CBAd131481d"
+        )
         console.log(signature)
     }
 
