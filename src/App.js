@@ -11,7 +11,7 @@ const App = () => {
         <>
             <div className={"d-flex justify-content-around"}>
                 {/*<Main/>*/}
-                {/*<Main2/>*/}
+                <Main2/>
                 {/*<Main3/>*/}
                 <Main4/>
             </div>
